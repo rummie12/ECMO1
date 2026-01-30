@@ -8,7 +8,10 @@ version 19
 cd "C:\Users\laxfr\Desktop\All-Comers\Analysis\ECMO1"
 pwd
 
-~pause
+**new things**
+**more new things**
+
+**making change**
 use "C:\Users\laxfr\Desktop\All-Comers\Onc-BMT\Stata\Data\All Admitted Onc-BMT Modified Table 1 Data (Updated).dta"
 
 merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\Trisomy\Stata\Data\All Trisomy Patients Modified Table 1 (Updated).dta"
@@ -19,14 +22,6 @@ tab high_risk_group_onc high_risk_group_T1318
 
 merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\Trauma\Stata\Data\All Trauma Patients Modified Table 1 (Updated).dta"
 
-
-******
-shell git add . 
-shell git commit -m"`c(current_time)' `c(current_date)'"
-shell git push
-
-cd
-~pause
 
 rename _merge _merge_trauma
 
@@ -185,7 +180,7 @@ tab ECMO_icd10_cat, sort
 
 restore
 
-~pause
+
 
 *generate first encounter*
 bysort DischargeID: gen first =1 if _n==1
@@ -1448,7 +1443,7 @@ tab ECMO_y_n high_risk_group, chi2
 tab mortality high_risk_group if ECMO_y_n ==0, chi2
 
 
-~pause
+
 
 **Table 1 data**
 preserve
@@ -1582,7 +1577,7 @@ restore
 
 mean(annual_total_ECMO)
 mean(annual_total_admissions)
-~pause
+
 preserve
 bysort YearOfService: keep if _n==1
 twoway ///
@@ -1601,7 +1596,7 @@ restore
 mean(annual_total_ECMO_T1318)
 mean(annual_total_admissions_T1318)
 
-~pause
+
 preserve
 bysort YearOfService: keep if _n==1
 twoway ///
@@ -1617,7 +1612,7 @@ restore
 mean(annual_total_ECMO_trauma)
 mean(annual_total_admissions_trauma)
 
-~pause
+
 preserve
 bysort YearOfService: keep if _n==1 
 twoway ///
@@ -1633,7 +1628,7 @@ restore
 mean(annual_total_ECMO_onc)
 mean(annual_total_admissions_onc)
 
-~pause
+
 preserve
 bysort YearOfService: keep if _n==1 
 twoway ///
@@ -1649,7 +1644,7 @@ restore
 mean(annual_total_ECMO_nhr)
 mean(annual_total_admissions_nhr)
 
-~pause
+
 preserve
 bysort YearOfService: keep if _n==1 
 twoway ///
@@ -1662,7 +1657,7 @@ twoway ///
     legend(order(1 "Total ECMO (Mean = 1,036)" 2 "Total Admissions (Mean = 95,963)"))
 restore
 
-~pause
+
 **REGRESSION**
 *creation of empty model*
 logistic ECMO_y_n
@@ -1748,7 +1743,7 @@ codebook DischargeID if ECMO_y_n ==1 & (high_risk_group ==2 | high_risk_group ==
 **Total ECLS Patients-Not High Risk**
 codebook DischargeID if ECMO_y_n ==1 & high_risk_group ==3
 
-~pause
+
 
 **Total non-ECLS Patients**
 codebook DischargeID if ECMO_y_n ==0
@@ -1842,4 +1837,7 @@ table1, by(ECMO_y_n) vars(admitageyears contn \ Ethnicity cat \ high_risk_group 
 
 table1, by(ecmo_type1) vars(high_risk_group cat)
 
-
+cd "C:\Users\laxfr\Desktop\All-Comers\Analysis\ECMO1" 
+shell git add . 
+shell git commit -m"`c(current_time)' `c(current_date)'"
+shell git push
