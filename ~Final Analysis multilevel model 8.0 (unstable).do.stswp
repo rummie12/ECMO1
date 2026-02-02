@@ -1858,8 +1858,8 @@ table1, by(mortality) vars(high_risk_group cat)
 
 preserve
 keep if ECMO_y_n ==1
-table1, by(ecmo_type1) vars(high_risk_group cat)
- 
+table1, by(mortality) vars(high_risk_group cat)
+restore 
  
 shell git add . 
 shell git commit -m"`c(current_time)' `c(current_date)'"
