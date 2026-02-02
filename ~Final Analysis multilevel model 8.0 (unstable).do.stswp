@@ -184,6 +184,7 @@ tab ECMO_icd10_cat, sort
 
 restore
 
+~pause
 
 
 *generate first encounter*
