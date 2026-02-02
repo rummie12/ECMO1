@@ -152,7 +152,7 @@ encode ECMO_icd10, gen(ECMO_icd10_cat)
 *all patients*
 preserve
 bysort DischargeID: keep if ECMO_y_n ==1
-tab ECMO_icd10_cat
+tab ECMO_icd10_cat, sort
 
 restore
 
@@ -179,7 +179,7 @@ restore
 
 *Not-High Risk*
 preserve
-bysort DischargeID: keep if high_risk_group ==1 & ECMO_y_n ==1
+bysort DischargeID: keep if high_risk_group ==3 & ECMO_y_n ==1
 tab ECMO_icd10_cat, sort
 
 restore
@@ -1849,3 +1849,15 @@ table1, by(ecmo_type1) vars(high_risk_group cat)
 shell git add . 
 shell git commit -m"`c(current_time)' `c(current_date)'"
 shell git push
+
+**junk code**
+*labeling ECMO_icd10_cat*
+label define ECMO_icd10_cat *** "" 
+Q2 congenital Cardiac Diseae
+J9 Respiratory Disease NOS
+J1 Pneumonia
+P2 neonatal Cardiopulmonary disease
+Q3 congenital respiratory Disease
+I4 other cardiac disease
+R0 cardiopulmonary diease nos
+J8 Interstitial lung disease
