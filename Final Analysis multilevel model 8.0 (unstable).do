@@ -1478,6 +1478,7 @@ reg annual_total_admissions
 reg annual_total_admissions YearOfService
 
 reg annual_total_ECMO
+reg annual_total_ECMO YearOfService
 reg annual_total_ECMO YearOfService annual_total_admissions
 
 restore
@@ -1487,7 +1488,7 @@ restore
 **Table 1 Data All Hospital Data - Not High Risk**
 preserve
 
-bysort YearOfService(obsnum): keep if _n==1
+bysort YearOfService: keep if _n==1
 
 tab annual_total_ECMO_nhr YearOfService, chi2
 tab annual_total_admissions_nhr YearOfService, chi2
@@ -1503,6 +1504,7 @@ reg annual_total_admissions_nhr
 reg annual_total_admissions YearOfService
 
 reg annual_total_ECMO_nhr
+reg annual_total_ECMO_nhr YearOfService
 reg annual_total_ECMO_nhr YearOfService annual_total_admissions_nhr
 
 restore
@@ -1528,6 +1530,7 @@ reg annual_total_admissions_T1318
 reg annual_total_admissions YearOfService
 
 reg annual_total_ECMO_T1318
+reg annual_total_ECMO_T1318 YearOfService
 reg annual_total_ECMO_T1318 YearOfService annual_total_admissions_T1318
 
 restore
@@ -1551,6 +1554,7 @@ reg annual_total_admissions_trauma
 reg annual_total_admissions YearOfService
 
 reg annual_total_ECMO_trauma
+reg annual_total_ECMO_trauma YearOfService
 reg annual_total_ECMO_trauma YearOfService annual_total_admissions_trauma
 
 restore
@@ -1576,6 +1580,7 @@ reg annual_total_admissions_onc
 reg annual_total_admissions YearOfService
 
 reg annual_total_ECMO_onc
+reg annual_total_ECMO_onc YearOfService
 reg annual_total_ECMO_onc YearOfService annual_total_admissions_onc
 
 restore
@@ -1598,7 +1603,7 @@ twoway ///
     legend(order(1 "Total ECMO (Mean = 1,209)" 2 "Total Admissions (Mean = 107,699)"))
 restore
 
-~pause
+
 
 mean(annual_total_ECMO_T1318)
 mean(annual_total_admissions_T1318)
@@ -1666,6 +1671,8 @@ twoway ///
 	yscale(log) ///
     legend(order(1 "Total ECMO (Mean = 1,036)" 2 "Total Admissions (Mean = 95,963)"))
 restore
+
+~pause
 
 **REGRESSION**
 *creation of empty model*
