@@ -11,6 +11,10 @@ pwd
 **new things**
 **more new things**
 
+shell git add . 
+shell git commit -m"`c(current_time)' `c(current_date)'"
+shell git push
+
 **making change**
 use "C:\Users\laxfr\Desktop\All-Comers\Onc-BMT\Stata\Data\All Admitted Onc-BMT Modified Table 1 Data (Updated).dta"
 
@@ -1836,8 +1840,7 @@ ssc install table1
 table1, by(ECMO_y_n) vars(admitageyears contn \ Ethnicity cat \ high_risk_group cat Gender cat \ Mortality cat)
 
 table1, by(ecmo_type1) vars(high_risk_group cat)
-
-cd "C:\Users\laxfr\Desktop\All-Comers\Analysis\ECMO1" 
+ 
 shell git add . 
 shell git commit -m"`c(current_time)' `c(current_date)'"
 shell git push
