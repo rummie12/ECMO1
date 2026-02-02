@@ -45,6 +45,7 @@ merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stat
 rename _merge _merge_ECMO_dx_ICD
 
 
+
 set seed 12345
 
 drop if HospitalNumber ==.
@@ -184,7 +185,7 @@ tab ECMO_icd10_cat, sort
 
 restore
 
-~pause
+
 
 
 *generate first encounter*
@@ -1527,13 +1528,15 @@ sum annual_total_admissions_T1318
 sum annual_total_ECMO_T1318
 
 reg annual_total_admissions_T1318
-reg annual_total_admissions YearOfService
+reg annual_total_admissions_T1318 YearOfService
 
 reg annual_total_ECMO_T1318
 reg annual_total_ECMO_T1318 YearOfService
 reg annual_total_ECMO_T1318 YearOfService annual_total_admissions_T1318
 
 restore
+
+~pause
 
 **Table 1 Data All Hospital Data – Trauma**
 preserve
@@ -1551,7 +1554,7 @@ sum annual_total_admissions_trauma
 sum annual_total_ECMO_trauma
 
 reg annual_total_admissions_trauma
-reg annual_total_admissions YearOfService
+reg annual_total_admissions_trauma YearOfService
 
 reg annual_total_ECMO_trauma
 reg annual_total_ECMO_trauma YearOfService
@@ -1577,7 +1580,7 @@ sum annual_total_admissions_onc
 sum annual_total_ECMO_onc
 
 reg annual_total_admissions_onc
-reg annual_total_admissions YearOfService
+reg annual_total_admissions_onc YearOfService
 
 reg annual_total_ECMO_onc
 reg annual_total_ECMO_onc YearOfService
@@ -1585,8 +1588,7 @@ reg annual_total_ECMO_onc YearOfService annual_total_admissions_onc
 
 restore
 
-mean(annual_total_ECMO)
-mean(annual_total_admissions)
+~pause
 
 preserve
 bysort YearOfService: keep if _n==1
@@ -1600,7 +1602,7 @@ twoway ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = 1,209)" 2 "Total Admissions (Mean = 107,699)"))
+    legend(order(1 "Total ECMO (Mean = 1,198)" 2 "Total Admissions (Mean = 106,900)"))
 restore
 
 
@@ -1608,7 +1610,7 @@ restore
 mean(annual_total_ECMO_T1318)
 mean(annual_total_admissions_T1318)
 
-
+~pause
 preserve
 bysort YearOfService: keep if _n==1
 twoway ///
@@ -1618,13 +1620,13 @@ twoway ///
     xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" 5 "2020" ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
-    legend(order(1 "Total ECMO (Mean = 2)" 2 "Total Admissions (Mean = 419)"))
+    legend(order(1 "Total ECMO (Mean = 2)" 2 "Total Admissions (Mean = 413)"))
 restore
 
 mean(annual_total_ECMO_trauma)
 mean(annual_total_admissions_trauma)
 
-
+~pause
 preserve
 bysort YearOfService: keep if _n==1 
 twoway ///
@@ -1635,13 +1637,13 @@ twoway ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = 158)" 2 "Total Admissions (Mean = 7,852)"))
+    legend(order(1 "Total ECMO (Mean = 157)" 2 "Total Admissions (Mean = 7,832)"))
 restore
 
 mean(annual_total_ECMO_onc)
 mean(annual_total_admissions_onc)
 
-
+~pause
 preserve
 bysort YearOfService: keep if _n==1 
 twoway ///
@@ -1652,13 +1654,14 @@ twoway ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = 13)" 2 "Total Admissions (Mean = 3,947)"))
+    legend(order(1 "Total ECMO (Mean = 13)" 2 "Total Admissions (Mean = 3,940)"))
 restore
 
 mean(annual_total_ECMO_nhr)
 mean(annual_total_admissions_nhr)
 
 
+~pause
 preserve
 bysort YearOfService: keep if _n==1 
 twoway ///
@@ -1669,7 +1672,7 @@ twoway ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = 1,036)" 2 "Total Admissions (Mean = 95,963)"))
+    legend(order(1 "Total ECMO (Mean = 1,026)" 2 "Total Admissions (Mean = 95,177)"))
 restore
 
 ~pause
@@ -1848,11 +1851,23 @@ di .0073738*.2853401 /(.0073738*.2853401 + 1) * 100
 *upper*
 di .0073738*.4191997 /(.0073738*.4191997 + 1) * 100
 
-ssc install table1
-table1, by(ECMO_y_n) vars(admitageyears contn \ Ethnicity cat \ high_risk_group cat Gender cat \ Mortality cat)
 
-table1, by(ecmo_type1) vars(high_risk_group cat)
+table1, by(ECMO_y_n) vars(admitageyears contn \ Ethnicity cat \ high_risk_group cat Gender cat \ mortality cat)
+table1, by(mortality) vars(high_risk_group cat)
+
+~pause
+
+preserve
+bysort HospitalNumber: keep if _n==1
+sum center_admissions, de 
+sum center_totalecmo, de
+restore
+
+
+bysort HospitalNumber: drop if _n > 1
+browse HospitalNumber center_admissions center_totalecmo
  
+~pause 
 shell git add . 
 shell git commit -m"`c(current_time)' `c(current_date)'"
 shell git push
