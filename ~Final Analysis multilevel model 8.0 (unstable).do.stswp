@@ -46,6 +46,7 @@ merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stat
 rename _merge _merge_ECMO_dx_ICD
 
 merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
+
 rename _merge _merge_opportunity 
 
 

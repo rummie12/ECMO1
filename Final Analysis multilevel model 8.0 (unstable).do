@@ -46,6 +46,7 @@ merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stat
 rename _merge _merge_ECMO_dx_ICD
 
 merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
+
 rename _merge _merge_opportunity 
 
 
@@ -1865,7 +1866,7 @@ melogit ECMO_y_n||HospitalNumber: , or
 estimates store modele2
 
 *creation of multilevel model, fixed effects*
-melogit ECMO_y_n ib3.high_risk_group i.Ethnicity ib0.opportunity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or 
+melogit ECMO_y_n ib3.high_risk_group i.Ethnicity ib0.opportunity##i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or 
 ~pause
 **probabilities**
 *baseline*
