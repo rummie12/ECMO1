@@ -45,6 +45,9 @@ merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stat
 
 rename _merge _merge_ECMO_dx_ICD
 
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
+rename _merge _merge_opportunity 
+
 
 set seed 12345
 
@@ -187,6 +190,10 @@ tab ECMO_icd10_cat, sort
 
 restore
 
+
+*rename & destring opportunity score*
+rename OverallChildOpportunityLevel opportunity
+destring opportunity, replace
 
 
 *generate first encounter*

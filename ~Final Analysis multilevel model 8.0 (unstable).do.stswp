@@ -191,6 +191,10 @@ tab ECMO_icd10_cat, sort
 restore
 
 
+*destring opportunity score*
+rename O
+destring opportunity
+
 
 *generate first encounter*
 bysort DischargeID: gen first =1 if _n==1
