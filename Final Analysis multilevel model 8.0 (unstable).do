@@ -1858,25 +1858,49 @@ melogit ECMO_y_n||HospitalNumber: , or
 estimates store modele2
 
 *creation of multilevel model, fixed effects*
-melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or
+melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or ///
+coeflegend
+**probabilities**
+*baseline*
+di .007378/(1+.007378)
+*High Risk Groups*
+*T13/18 probability*
+di .0073738*.4882429 /(.0073738*.4882429 + 1) * 100
+*Trauma probability*
+di .0073738*2.137313 /(.0073738*2.137313 + 1) * 100
+*Onc probability*
+di .0073738*.3458533 /(.0073738*.3458533 + 1) * 100
 
-**COVID MLM**
+**CI**
+*High Risk Groups*
+*baseline*
+*lower*
+di .0059978 / (.0059978 +1)*100
+*upper*
+di .0090655/ (.0090655 + 1)*100
+*T1318 CI*
+*lower*
+di .0073738*.3142088 /(.0073738*.3142088  + 1) * 100
+*upper*
+di .0073738*.7586709 /(.0073738*.7586709 + 1) * 100
 
-*creation of multilevel model, fixed effects*
-preserve
-bysort YearOfService: drop if YearOfService ==4 | YearOfService==5
-melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or
-restore
+*Trauma CI*
+*lower*
+di .0073738*2.014383 /(.0073738*2.014383 + 1) * 100
+*upper*
+di .0073738*2.267746 /(.0073738*2.267746 + 1) * 100
 
-**stata code at end to update repository**
-shell git add .
-shell git commit -m "Auto save from Stata `c(current_date)' `c(current_time)`''"
-shell git push
+*Onc/HSCT*
+*lower*
+di .0073738*.2853401 /(.0073738*.2853401 + 1) * 100
+*upper*
+di .0073738*.4191997 /(.0073738*.4191997 + 1) * 100
 
-~pause
-estimates store model2a
 
+*Margins Center Admissions*
 margins, at(center_admissions = (10000(5000)30000))
+
+*Margins Total ECMO*
 margins, at(center_totalecmo = (200(100)1000))
 
 **MARGINS ECMO_dx_y_n**
@@ -1903,6 +1927,15 @@ margins, at (center_totalecmo = (100(50)500) high_risk_group = 1 ECMO_dx_y_n = 1
 
 **MARGINS ONC**
 melogit , nolog
+
+**COVID MLM**
+
+*creation of multilevel model, fixed effects*
+preserve
+bysort YearOfService: drop if YearOfService ==4 | YearOfService==5
+melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or
+restore
+
 *margins center admissions*
 margins, at (center_admissions = (10000(1000)30000) high_risk_group = 2 ECMO_dx_y_n = 1 center_totalecmo = 361.6644 number_of_casesonc = 930.8248 number_of_casest1318 = 98.29036  number_of_casestrauma = 1803.592)
 
@@ -1991,43 +2024,6 @@ restore
 melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or coeflegend
 
 
-**probabilities**
-*baseline*
-di .0073738/(.0073738 + 1) * 100
-*High Risk Groups*
-*T13/18 probability*
-di .0073738*.4882429 /(.0073738*.4882429 + 1) * 100
-*Trauma probability*
-di .0073738*2.137313 /(.0073738*2.137313 + 1) * 100
-*Onc probability*
-di .0073738*.3458533 /(.0073738*.3458533 + 1) * 100
-
-**CI**
-*High Risk Groups*
-*baseline*
-*lower*
-di .0059978 / (.0059978 +1)*100
-*upper*
-di .0090655/ (.0090655 + 1)*100
-*T1318 CI*
-*lower*
-di .0073738*.3142088 /(.0073738*.3142088  + 1) * 100
-*upper*
-di .0073738*.7586709 /(.0073738*.7586709 + 1) * 100
-
-*Trauma CI*
-*lower*
-di .0073738*2.014383 /(.0073738*2.014383 + 1) * 100
-*upper*
-di .0073738*2.267746 /(.0073738*2.267746 + 1) * 100
-
-*Onc/HSCT*
-*lower*
-di .0073738*.2853401 /(.0073738*.2853401 + 1) * 100
-*upper*
-di .0073738*.4191997 /(.0073738*.4191997 + 1) * 100
-
-ssc install table1
 table1, by(ECMO_y_n) vars(admitageyears contn \ Ethnicity cat \ high_risk_group cat Gender cat \ Mortality cat)
 
 table1, by(ecmo_type1) vars(high_risk_group cat)
