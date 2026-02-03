@@ -1865,8 +1865,8 @@ melogit ECMO_y_n||HospitalNumber: , or
 estimates store modele2
 
 *creation of multilevel model, fixed effects*
-melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or ///
-coeflegend
+melogit ECMO_y_n ib3.high_risk_group i.Ethnicity ib0.opportunity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or 
+~pause
 **probabilities**
 *baseline*
 di .007378/(1+.007378)
