@@ -1616,19 +1616,12 @@ twoway ///
 	yscale(log) ///
     legend(order(1 "Total ECMO (Mean = ***)" 2 "Total Admissions (Mean = ***)"))
 restore
-
 ~pause
 
 *Binning 2016 - 2019, 2020, 2021-2024*
 preserve
 bysort YearOfService: keep if _n==1
 keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
-reg annual_total_ECMO annual_total_admissions YearOfService
-restore
-
-preserve
-bysort YearOfService: keep if _n==1
-keep if YearOfService ==5
 reg annual_total_ECMO annual_total_admissions YearOfService
 restore
 
@@ -1654,11 +1647,6 @@ keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService 
 reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
 restore
 
-preserve
-bysort YearOfService: keep if _n==1
-keep if YearOfService ==5
-reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
-restore
 
 preserve
 bysort YearOfService: keep if _n==1
@@ -1678,13 +1666,6 @@ restore
 preserve
 bysort YearOfService: keep if _n==1
 keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
-reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
-restore
-
-
-preserve
-bysort YearOfService: keep if _n==1
-keep if YearOfService ==5
 reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
 restore
 
@@ -1720,12 +1701,6 @@ restore
 
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService ==5
-reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
-restore
-
-preserve
-bysort YearOfService: keep if _n==1
 keep if YearOfService == 6|YearOfService ==7|YearOfService ==8|YearOfService ==9
 reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
 restore
@@ -1745,11 +1720,6 @@ keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService 
 reg annual_total_ECMO_onc annual_total_admissions_onc YearOfService
 restore
 
-preserve
-bysort YearOfService: keep if _n==1
-keep if YearOfService ==5
-reg annual_total_ECMO_onc annual_total_admissions_onc YearOfService
-restore
 
 preserve
 bysort YearOfService: keep if _n==1
