@@ -1598,11 +1598,11 @@ restore
 
 **SENSITIVITY ANALYSIS**
 
-**All Patients COVID effect**
+*All Patients COVID effect dropping 2020*
 
 preserve
 bysort YearOfService: keep if _n==1
-drop if YearOfService ==4 | YearOfService==5
+drop if YearOfService==5
 reg annual_total_ECMO annual_total_admissions YearOfService
 twoway ///
     (scatter annual_total_ECMO YearOfService, ///
@@ -1614,20 +1614,21 @@ twoway ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = 1,213)" 2 "Total Admissions (Mean = 108,082)"))
+    legend(order(1 "Total ECMO (Mean = ***)" 2 "Total Admissions (Mean = ***)"))
 restore
 
 ~pause
 
+*Binning 2016 - 2019, 2020, 2021-2024*
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService ==1| YearOfService ==2| YearOfService ==3
+keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
 reg annual_total_ECMO annual_total_admissions YearOfService
 restore
 
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService == 4| YearOfService ==5
+keep if YearOfService ==5
 reg annual_total_ECMO annual_total_admissions YearOfService
 restore
 
@@ -1638,21 +1639,24 @@ reg annual_total_ECMO annual_total_admissions YearOfService
 restore
 
 **NHR COVID effect**
+*dropping 2020*
 preserve
 bysort YearOfService: keep if _n==1
-drop if YearOfService ==4 | YearOfService==5
+drop if YearOfService==5
+reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
+restore
+
+
+*binning NHR 2016-2019, 2020, 2021-2024
+preserve
+bysort YearOfService: keep if _n==1
+keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
 reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
 restore
 
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService ==1| YearOfService ==2| YearOfService ==3
-reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
-restore
-
-preserve
-bysort YearOfService: keep if _n==1
-keep if YearOfService == 4| YearOfService ==5
+keep if YearOfService ==5
 reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
 restore
 
@@ -1663,21 +1667,24 @@ reg annual_total_ECMO_nhr annual_total_admissions_nhr YearOfService
 restore
 
 **Trisomy 13/18 COVID effect**
+*Dropping 2020*
 preserve
 bysort YearOfService: keep if _n==1
-drop if YearOfService ==4 | YearOfService==5
+drop if YearOfService==5
 reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
 restore
 
+*Binning 2016-2019, 2020, 2021-204*
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService ==1| YearOfService ==2| YearOfService ==3
+keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
 reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
 restore
 
+
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService == 4| YearOfService ==5
+keep if YearOfService ==5
 reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
 restore
 
@@ -1688,9 +1695,10 @@ reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
 restore
 
 **Trauma COVID effect**
+*dropping 2020*
 preserve
 bysort YearOfService: keep if _n==1
-drop if YearOfService ==4 | YearOfService==5
+drop if YearOfService==5
 reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
 twoway ///
     (scatter annual_total_ECMO_trauma YearOfService, mlabel(annual_total_ECMO_trauma) mlabangle(45)) ///
@@ -1699,20 +1707,20 @@ twoway ///
     xlabel(1 "2016" 2 "2017" 3 "2018" ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
-    legend(order(1 "Total ECMO (Mean = 157)" 2 "Total Admissions (Mean = 7,772)"))
+    legend(order(1 "Total ECMO (Mean = ***)" 2 "Total Admissions (Mean = ***)"))
 
 restore
-~pause
 
+*binning 2016-2019, 2020, 2021-2024
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService ==1| YearOfService ==2| YearOfService ==3
+keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
 reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
 restore
 
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService == 4| YearOfService ==5
+keep if YearOfService ==5
 reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
 restore
 
@@ -1723,21 +1731,23 @@ reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
 restore
 
 **Onc COVID effect**
+*dropping 2020*
 preserve
 bysort YearOfService: keep if _n==1
-drop if YearOfService ==4 | YearOfService==5
+drop if YearOfService==5
+reg annual_total_ECMO_onc annual_total_admissions_onc YearOfService
+restore
+
+*binning 2016-2019, 2020, 2021-2024*
+preserve
+bysort YearOfService: keep if _n==1
+keep if YearOfService ==1| YearOfService ==2| YearOfService ==3 | YearOfService ==4
 reg annual_total_ECMO_onc annual_total_admissions_onc YearOfService
 restore
 
 preserve
 bysort YearOfService: keep if _n==1
-keep if YearOfService ==1| YearOfService ==2| YearOfService ==3
-reg annual_total_ECMO_onc annual_total_admissions_onc YearOfService
-restore
-
-preserve
-bysort YearOfService: keep if _n==1
-keep if YearOfService == 4| YearOfService ==5
+keep if YearOfService ==5
 reg annual_total_ECMO_onc annual_total_admissions_onc YearOfService
 restore
 
