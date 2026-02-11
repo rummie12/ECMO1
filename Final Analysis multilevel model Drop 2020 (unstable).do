@@ -82,6 +82,7 @@ replace AdmitYear = 9 if AdmitYear == 2024
 drop if AdmitYear ==.
 
 
+
 label define AdmitYear 1 "2016" 2 "2017" 3 "2018" 4 "2019" 5 "2020" 6 "2021" 7 "2022" 8 "2023" 9 "2024"
 label values AdmitYear AdmitYear
 
@@ -1449,6 +1450,7 @@ replace ECMO_mortality_count_onc = ECMO_mortality_count_onc[1]
 
 drop if HospitalNumber ==.
 drop if DischargeID ==.
+drop if YearOfService == 5
 
 **Table 1**
 
