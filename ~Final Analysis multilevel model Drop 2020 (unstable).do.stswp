@@ -90,6 +90,7 @@ tab AdmitYear YearOfService
 
 replace AdmitYear = YearOfService if AdmitYear ==.
 replace YearOfService = AdmitYear if YearOfService ==.
+drop if YearOfService == 5
 
 
 gen high_risk_group =.

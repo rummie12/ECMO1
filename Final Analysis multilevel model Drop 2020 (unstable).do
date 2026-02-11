@@ -90,6 +90,7 @@ tab AdmitYear YearOfService
 
 replace AdmitYear = YearOfService if AdmitYear ==.
 replace YearOfService = AdmitYear if YearOfService ==.
+drop if YearOfService == 5
 
 
 gen high_risk_group =.
@@ -1522,7 +1523,7 @@ reg annual_total_ECMO_nhr YearOfService annual_total_admissions_nhr
 
 restore
 
-~pause
+
 
 **Table 1 Data All Hospital Data – Trisomy 13/18**
 preserve
@@ -1546,7 +1547,7 @@ reg annual_total_ECMO_T1318
 reg annual_total_ECMO_T1318 YearOfService annual_total_admissions_T1318
 
 restore
-~pause
+
 
 **Table 1 Data All Hospital Data – Trauma**
 preserve
@@ -1571,7 +1572,7 @@ reg annual_total_ECMO_trauma YearOfService annual_total_admissions_trauma
 
 restore
 
-~pause
+
 
 **Table 1 Data All Hospital Data –Onc/HSCT**
 preserve
@@ -1596,13 +1597,15 @@ reg annual_total_ECMO_onc YearOfService annual_total_admissions_onc
 
 restore
 
-~pause
+
 
 **SENSITIVITY ANALYSIS**
 
 *All Patients COVID effect dropping 2020*
 
 preserve
+mean(annual_total_admissions)
+mean(annual_total_ECMO)
 bysort YearOfService: keep if _n==1
 drop if YearOfService==5
 reg annual_total_ECMO annual_total_admissions YearOfService
@@ -1612,7 +1615,7 @@ twoway ///
     (scatter annual_total_admissions YearOfService, ///
         mlabel(annual_total_admissions) mlabangle(-45)), ///
     xtitle("Year") ///
-    xlabel(1 "2016" 2 "2017" 3 "2018" ///
+    xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
