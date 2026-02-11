@@ -1602,7 +1602,6 @@ restore
 **SENSITIVITY ANALYSIS**
 
 *All Patients COVID effect dropping 2020*
-
 preserve
 mean(annual_total_admissions)
 mean(annual_total_ECMO)
@@ -1619,7 +1618,7 @@ twoway ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = ***)" 2 "Total Admissions (Mean = ***)"))
+    legend(order(1 "Total ECMO (Mean = 1,222)" 2 "Total Admissions (Mean = 109,698)"))
 restore
 ~pause
 
@@ -1662,10 +1661,25 @@ restore
 **Trisomy 13/18 COVID effect**
 *Dropping 2020*
 preserve
+mean(annual_total_ECMO_T1318)
+mean(annual_total_admissions_T1318)
+
 bysort YearOfService: keep if _n==1
 drop if YearOfService==5
-reg annual_total_ECMO_T1318 annual_total_admissions_T1318 YearOfService
+bysort YearOfService: keep if _n==1
+twoway ///
+    (scatter annual_total_ECMO_T1318 YearOfService, ///
+        mlabel(annual_total_ECMO_T1318) mlabangle(45)) ///
+    (scatter annual_total_admissions_T1318 YearOfService, ///
+        mlabel(annual_total_admissions_T1318) mlabangle(-45)), ///
+    xtitle("Year") ///
+    xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" ///
+           6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
+    ytitle("Number of Cases") ///
+    legend(order(1 "Total ECMO (Mean = 2)" 2 "Total Admissions (Mean = 418)"))
+reg annual_total_ECMO_T1318 YearOfService annual_total_admissions_T1318
 restore
+~pause
 
 *Binning 2016-2019, 2020, 2021-204*
 preserve
@@ -1683,6 +1697,8 @@ restore
 **Trauma COVID effect**
 *dropping 2020*
 preserve
+mean(annual_total_ECMO_trauma)
+mean(annual_total_admissions_trauma)
 bysort YearOfService: keep if _n==1
 drop if YearOfService==5
 reg annual_total_ECMO_trauma annual_total_admissions_trauma YearOfService
@@ -1690,12 +1706,13 @@ twoway ///
     (scatter annual_total_ECMO_trauma YearOfService, mlabel(annual_total_ECMO_trauma) mlabangle(45)) ///
     (scatter annual_total_admissions_trauma YearOfService, mlabel(annual_total_admissions_trauma) mlabangle(-45)), ///
         xtitle("Year") ///
-    xlabel(1 "2016" 2 "2017" 3 "2018" ///
+    xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
-    legend(order(1 "Total ECMO (Mean = ***)" 2 "Total Admissions (Mean = ***)"))
+    legend(order(1 "Total ECMO (Mean = 159)" 2 "Total Admissions (Mean = 7,834)"))
 
 restore
+~pause
 
 *binning 2016-2019, 2020, 2021-2024
 preserve
@@ -1736,25 +1753,54 @@ restore
 
 preserve
 bysort HospitalCity: keep if _n ==1
-mean(annual_total_ECMO)
-mean(annual_total_admissions)
+mean(annual_total_ECMO_onc)
+mean(annual_total_admissions_onc)
 restore
 ~pause
+
+**Dropping 2020**
+
 preserve
 bysort YearOfService: keep if _n==1
 twoway ///
-    (scatter annual_total_ECMO YearOfService, ///
-        mlabel(annual_total_ECMO) mlabangle(45)) ///
-    (scatter annual_total_admissions YearOfService, ///
-        mlabel(annual_total_admissions) mlabangle(-45)), ///
+    (scatter annual_total_ECMO_onc YearOfService, ///
+        mlabel(annual_total_ECMO_onc) mlabangle(45)) ///
+    (scatter annual_total_admissions_onc YearOfService, ///
+        mlabel(annual_total_admissions_onc) mlabangle(-45)), ///
     xtitle("Year") ///
-    xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" 5 "2020" ///
+    xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" ///
            6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
     ytitle("Number of Cases") ///
 	yscale(log) ///
-    legend(order(1 "Total ECMO (Mean = 1,213)" 2 "Total Admissions (Mean = 108,082)"))
+    legend(order(1 "Total ECMO (Mean = 14)" 2 "Total Admissions (Mean = 3,953)"))
 	
-reg annual_total_ECMO YearOfService annual_total_admissions
+reg annual_total_ECMO_onc YearOfService annual_total_admissions_onc
+
+restore
+~pause
+
+**NHR Population COVID Effects**
+
+**Dropping 2020**
+
+preserve
+
+mean(annual_total_ECMO_nhr)
+mean(annual_total_admissions_nhr)
+bysort YearOfService: keep if _n==1
+twoway ///
+    (scatter annual_total_ECMO_nhr YearOfService, ///
+        mlabel(annual_total_ECMO_nhr) mlabangle(45)) ///
+    (scatter annual_total_admissions_nhr YearOfService, ///
+        mlabel(annual_total_admissions_nhr) mlabangle(-45)), ///
+    xtitle("Year") ///
+    xlabel(1 "2016" 2 "2017" 3 "2018" 4 "2019" ///
+           6 "2021" 7 "2022" 8 "2023" 9 "2024", angle(-45)) ///
+    ytitle("Number of Cases") ///
+	yscale(log) ///
+    legend(order(1 "Total ECMO (Mean = 1,047)" 2 "Total Admissions (Mean = 97,504)"))
+	
+reg annual_total_ECMO_nhr YearOfService annual_total_admissions_nhr
 
 restore
 ~pause
@@ -1855,50 +1901,54 @@ melogit ECMO_y_n||HospitalNumber: , or
 estimates store modele2
 
 *creation of multilevel model, fixed effects*
-melogit ECMO_y_n ib3.high_risk_group i.Ethnicity ib0.opportunity##i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or 
+melogit ECMO_y_n ib3.high_risk_group i.Ethnicity i.Gender c.admitageyears c.YearOfService c.center_admissions c.center_totalecmo c.number_of_casesonc c.number_of_casest1318 c.number_of_casestrauma ||HospitalNumber: , or 
 ~pause
 **probabilities**
 *baseline*
-di .007378/(1+.007378)
+di .0070657/(1+.0070657) *100
 *High Risk Groups*
 *T13/18 probability*
-di .0073738*.4882429 /(.0073738*.4882429 + 1) * 100
+di .0070657*.4386876  /(.0070657*.4386876  + 1) * 100
 *Trauma probability*
-di .0073738*2.137313 /(.0073738*2.137313 + 1) * 100
+di .0070657*2.164056  /(.0070657*2.164056  + 1) * 100
 *Onc probability*
-di .0073738*.3458533 /(.0073738*.3458533 + 1) * 100
+di .0070657*.3523613  /(.0070657*.3523613  + 1) * 100
 
+~pause
 **CI**
 *High Risk Groups*
 *baseline*
 *lower*
-di .0059978 / (.0059978 +1)*100
+di .0057431  / (.0057431+1)*100
 *upper*
-di .0090655/ (.0090655 + 1)*100
+di .0086929/ (.0086929 + 1)*100
 *T1318 CI*
 *lower*
-di .0073738*.3142088 /(.0073738*.3142088  + 1) * 100
+di .0070657*.2680969 /(.0070657*.2680969  + 1) * 100
 *upper*
-di .0073738*.7586709 /(.0073738*.7586709 + 1) * 100
+di .0070657*.7178255 /(.0070657*.7178255 + 1) * 100
 
 *Trauma CI*
 *lower*
-di .0073738*2.014383 /(.0073738*2.014383 + 1) * 100
+di .0070657*2.033026  /(.0070657*2.033026  + 1) * 100
 *upper*
-di .0073738*2.267746 /(.0073738*2.267746 + 1) * 100
+di .0070657*2.303532 /(.0070657*2.303532 + 1) * 100
 
 *Onc/HSCT*
 *lower*
-di .0073738*.2853401 /(.0073738*.2853401 + 1) * 100
+di .0070657*.2878782 /(.0070657*.2878782 + 1) * 100
 *upper*
-di .0073738*.4191997 /(.0073738*.4191997 + 1) * 100
+di .0070657*.4312882 /(.0070657*.4312882 + 1) * 100
 
-
+~pause
+melogit
 *Margins Center Admissions*
 margins, at(center_admissions = (10000(5000)30000))
 
 *Margins Total ECMO*
 margins, at(center_totalecmo = (200(100)1000))
+
+~pause
 
 **MARGINS ECMO_dx_y_n**
 
