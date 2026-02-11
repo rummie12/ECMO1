@@ -19,33 +19,33 @@ shell git push
 **making change**
 use "C:\Users\laxfr\Desktop\All-Comers\Onc-BMT\Stata\Data\All Admitted Onc-BMT Modified Table 1 Data (Updated).dta"
 
-merge m:ma DischargeID using "C:\Users\laxfr\Desktop\All-Comers\Trisomy\Stata\Data\All Trisomy Patients Modified Table 1 (Updated).dta"
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\Trisomy\Stata\Data\All Trisomy Patients Modified Table 1 (Updated).dta"
 
 rename _merge _merge_trisomy
 tab high_risk_group_onc high_risk_group_T1318
 
 
-merge m:1 DischargeID using "C:\Users\laxfr\Desktop\All-Comers\Trauma\Stata\Data\All Trauma Patients Modified Table 1 (Updated).dta"
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\Trauma\Stata\Data\All Trauma Patients Modified Table 1 (Updated).dta"
 
 
 rename _merge _merge_trauma
 
 tab high_risk_group_T1318 high_risk_group_trauma
 
-merge m:1 DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All High Patients with ECMO Dx All Table 1 (Updated).dta"
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All High Patients with ECMO Dx All Table 1 (Updated).dta"
 
 
 rename _merge _merge_all
 
-merge m:1 DischargeID using "C:\Users\laxfr\Desktop\Fellowship Files\CHEAR Fellowship\Research\ECMO Practica 1\Data\All Hospital\Stata\Data\All ECMO Cases pulled by Px and Date.dta"
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\Fellowship Files\CHEAR Fellowship\Research\ECMO Practica 1\Data\All Hospital\Stata\Data\All ECMO Cases pulled by Px and Date.dta"
 
 rename _merge _merge_ecmo 
 
-merge m:1 DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\ECMO Dx by Discharge ID.dta"
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\ECMO Dx by Discharge ID.dta"
 
 rename _merge _merge_ECMO_dx_ICD
 
-merge m:1 DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
+merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
 
 rename _merge _merge_opportunity 
 
