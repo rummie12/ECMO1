@@ -41,11 +41,11 @@ merge m:m DischargeID using "C:\Users\laxfr\Desktop\Fellowship Files\CHEAR Fello
 
 rename _merge _merge_ecmo 
 
-merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\ECMO Dx by Discharge ID.dta"
+merge 1:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\ECMO Dx by Discharge ID.dta"
 
 rename _merge _merge_ECMO_dx_ICD
 
-merge m:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
+merge 1:m DischargeID using "C:\Users\laxfr\Desktop\All-Comers\All Patients\Stata\Data\All Patients Opportunity Score.dta"
 
 rename _merge _merge_opportunity 
 
